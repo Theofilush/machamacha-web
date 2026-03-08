@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yun Midori - Chinese Matcha | MatchaBali</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: "class" };
+
+      function toggleDarkMode() {
+        const html = document.documentElement;
+        const icon = document.getElementById("darkModeIcon");
+        html.classList.toggle("dark");
+        icon.textContent = html.classList.contains("dark") ? "🌙" : "🌞";
+      }
+    </script>
+  </head>
+  <body class="font-sans text-gray-800 dark:text-gray-200 dark:bg-gray-900 transition-colors duration-500">
+    <!-- Banner -->
+    <div class="bg-green-600 text-white text-center py-2 text-sm dark:bg-green-800">FREE SHIPPING WITH JNE OR J&T 🚚 ON ORDERS RP250.000 AND ABOVE 🚚</div>
+
+    <!-- Navbar -->
+    <header class="flex justify-between items-center px-6 py-4 shadow dark:bg-gray-800">
+      <div class="text-2xl font-bold text-green-700 dark:text-green-400">MatchaBali</div>
+      <nav class="space-x-6">
+        <a href="#" class="hover:text-green-600 dark:hover:text-green-400">Shop</a>
+        <a href="#" class="hover:text-green-600 dark:hover:text-green-400">Recipes</a>
+        <a href="#" class="hover:text-green-600 dark:hover:text-green-400">Contact Us</a>
+        <a href="#" class="hover:text-green-600 dark:hover:text-green-400">Matcha for Cafés</a>
+      </nav>
+      <button onclick="toggleDarkMode()" class="ml-4 px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 dark:text-white flex items-center">
+        <span id="darkModeIcon">🌞</span>
+        <span class="ml-2">Toggle</span>
+      </button>
+    </header>
+
+    <!-- Product Section -->
+    <section class="py-12">
+      <div class="container mx-auto px-4 md:px-8 lg:px-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Product Image -->
+        <div class="flex justify-center">
+          <img src="https://via.placeholder.com/400" alt="Yun Midori - Chinese Matcha" class="rounded shadow" />
+        </div>
+        <!-- Product Details -->
+        <div>
+          <h1 class="text-3xl font-bold mb-2">Yun Midori - Chinese Matcha</h1>
+          <p class="text-green-600 dark:text-green-400 text-xl mb-4">Rp 94.000,00</p>
+          <p class="mb-4">Ceremonial-grade matcha dari kultivar Qunti, Zhejiang, China. Rasa kaya, halus, dengan aroma roasted ringan, manis alami, dan tekstur creamy.</p>
+
+          <ul class="list-disc pl-6 mb-4 text-sm">
+            <li>Origin: Zhejiang, China</li>
+            <li>Cultivar: Qunti</li>
+            <li>Harvest: Spring 2025</li>
+            <li>Shelf Life: 12 months</li>
+            <li>Ingredients: 100% Pure Matcha</li>
+          </ul>
+
+          <h3 class="font-semibold mb-2">Key Benefits:</h3>
+          <ul class="list-disc pl-6 mb-4 text-sm space-y-1">
+            <li>Rich in Antioxidants — 137x lebih banyak dari teh hijau biasa</li>
+            <li>Clean Energy — boost stabil tanpa jitter</li>
+            <li>Calm Focus — L-theanine mendukung fokus</li>
+            <li>Boosts Metabolism — mendukung pembakaran lemak alami</li>
+            <li>Heart & Immune Support</li>
+            <li>Healthy Skin — kulit cerah dan sehat</li>
+            <li>Stress Relief — relaksasi & mood positif</li>
+            <li>Natural Detox — chlorophyll membantu detoks lembut</li>
+          </ul>
+
+          <!-- Size Options -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Size:</label>
+            <select class="border rounded px-3 py-2 dark:bg-gray-800 dark:border-gray-600">
+              <option>25 g</option>
+              <option>50 g</option>
+            </select>
+          </div>
+
+          <!-- Quantity -->
+          <div class="mb-4">
+            <label class="block mb-2 font-semibold">Quantity:</label>
+            <input type="number" value="1" min="1" class="border rounded px-3 py-2 w-20 dark:bg-gray-800 dark:border-gray-600" />
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex space-x-4">
+            <button class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Add to Cart</button>
+            <button class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600">Buy it now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="py-12 bg-green-50 dark:bg-gray-800">
+      <div class="container mx-auto px-4 md:px-8 lg:px-16">
+        <h2 class="text-2xl font-bold mb-8 text-center">You May Also Like</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="border p-4 rounded dark:border-gray-600 dark:bg-gray-700 text-center">
+            <h3 class="font-semibold">Yanike Midori Matcha - Hojicha</h3>
+            <p class="text-green-600 dark:text-green-400">From Rp 74.000,00</p>
+          </div>
+          <div class="border p-4 rounded dark:border-gray-600 dark:bg-gray-700 text-center">
+            <h3 class="font-semibold">Yakine Midori - Hojicha</h3>
+            <p class="text-green-600 dark:text-green-400">From Rp 80.000,00</p>
+          </div>
+          <div class="border p-4 rounded dark:border-gray-600 dark:bg-gray-700 text-center">
+            <h3 class="font-semibold">Ajisai Takara - Culinary Matcha</h3>
+            <p class="text-green-600 dark:text-green-400">From Rp 89.000,00</p>
+          </div>
+          <div class="border p-4 rounded dark:border-gray-600 dark:bg-gray-700 text-center">
+            <h3 class="font-semibold">Uluwatu Holder - Glass Chasen Holder</h3>
+            <p class="text-green-600 dark:text-green-400">Rp 124.000,00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="bg-green-100 py-12 text-center dark:bg-gray-700 transition-colors duration-500">
+      <div class="container mx-auto px-4 md:px-8 lg:px-16">
+        <h2 class="text-2xl font-bold mb-4">Be the first to know about new collections and exclusive offers</h2>
+        <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded border w-64 dark:bg-gray-800 dark:border-gray-600" />
+        <button class="ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Subscribe</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-700 text-white py-12 dark:bg-gray-900 transition-colors duration-500">
+      <div class="container mx-auto px-4 md:px-8 lg:px-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Shop -->
+        <div>
+          <h3 class="font-bold mb-3">Shop</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:underline">Matcha Powder</a></li>
+            <li><a href="#" class="hover:underline">Accessories</a></li>
+            <li><a href="#" class="hover:underline">View All</a></li>
+          </ul>
+        </div>
+
+        <!-- Customer Care -->
+        <div>
+          <h3 class="font-bold mb-3">Customer Care</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:underline">Contact Us</a></li>
+            <li><a href="#" class="hover:underline">Shipping & Delivery</a></li>
+            <li><a href="#" class="hover:underline">Returns & Refunds</a></li>
+            <li><a href="#" class="hover:underline">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h3 class="font-bold mb-3">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:underline">About Us</a></li>
+            <li><a href="#" class="hover:underline">Our Story</a></li>
+            <li><a href="#" class="hover:underline">Careers</a></li>
+            <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Follow Us -->
+        <div>
+          <h3 class="font-bold mb-3">Follow Us</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-green-300">Instagram</a>
+            <a href="#" class="hover:text-green-300">Facebook</a>
+            <a href="#" class="hover:text-green-300">WhatsApp</a>
+          </div>
+          <div class="mt-4">
+            <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200 transition-colors duration-300">Message us 💬</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-green-600 dark:border-gray-700 mt-8 pt-6 text-center text-sm">© 2026 MatchaBali. All rights reserved.</div>
+    </footer>
+  </body>
+</html>
