@@ -2,6 +2,7 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { Layout as AppLayout } from "./layouts/layout";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,8 +26,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="font-sans text-gray-800 dark:text-gray-200 dark:bg-gray-900 transition-colors duration-500">
+        <AppLayout>{children}</AppLayout>
+
         <ScrollRestoration />
         <Scripts />
       </body>
