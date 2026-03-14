@@ -1,6 +1,6 @@
 import { Outlet, Scripts, ScrollRestoration } from "react-router";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <div className="bg-green-600 text-white text-center py-2 text-sm dark:bg-green-800">FREE SHIPPING WITH JNE OR J&T 🚚 ON ORDERS RP250.000 AND ABOVE 🚚</div>
