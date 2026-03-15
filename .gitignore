@@ -7,3 +7,4 @@
 /build/
 
 schema.d.ts
+.env
