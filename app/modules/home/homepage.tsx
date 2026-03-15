@@ -1,6 +1,21 @@
+import { $api } from "../experiment/api";
+
 export function Homepage() {
+  const { data: products, error, isLoading } = $api.useQuery("get", "/products");
+
+  if (isLoading || !products) return <p>Loading products...</p>;
+
+  if (error) return <p>Failed to load products: {error.error}</p>;
+
+  console.log(products);
   return (
     <>
+      {products.map((product) => (
+        <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
+          <h3 className="font-semibold">{product.name}</h3>
+          <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
+        </div>
+      ))}
       <section className="py-12">
         <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <h2 className="text-2xl font-bold mb-8 text-center">OUR BEST-SELLING MATCHA</h2>
