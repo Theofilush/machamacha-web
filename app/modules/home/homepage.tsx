@@ -10,32 +10,16 @@ export function Homepage() {
   console.log(products);
   return (
     <>
-      {products.map((product) => (
-        <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-          <h3 className="font-semibold">{product.name}</h3>
-          <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
-        </div>
-      ))}
       <section className="py-12">
         <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <h2 className="text-2xl font-bold mb-8 text-center">OUR BEST-SELLING MATCHA</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-              <h3 className="font-semibold">Yun Midori - Chinese Matcha</h3>
-              <p className="text-green-600 dark:text-green-400">From Rp 94.000,00</p>
-            </div>
-            <div className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-              <h3 className="font-semibold">Yakine Midori - Hojicha</h3>
-              <p className="text-green-600 dark:text-green-400">From Rp 80.000,00</p>
-            </div>
-            <div className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-              <h3 className="font-semibold">Komorebi Midori - Samidori</h3>
-              <p className="text-green-600 dark:text-green-400">From Rp 99.000,00</p>
-            </div>
-            <div className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-              <h3 className="font-semibold">Ajisai Midori - Culinary</h3>
-              <p className="text-green-600 dark:text-green-400">From Rp 54.000,00</p>
-            </div>
+            {products.map((product) => (
+              <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
+                <h3 className="font-semibold">{product.name}</h3>
+                <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
