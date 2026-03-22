@@ -4,9 +4,10 @@ import { persist } from "zustand/middleware";
 export interface Product {
   id: string;
   name: string;
+  slug: string;
   price: number;
   category: string;
-  image: string;
+  imageUrl: string;
   description: string;
   rating: number;
   reviews: number;

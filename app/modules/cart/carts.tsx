@@ -101,7 +101,7 @@ export function Cart() {
           {items.map((item) => (
             <div key={item.id} className="flex flex-col sm:flex-row gap-6 p-6 bg-white rounded-2xl shadow-sm border border-emerald-100/50">
               <div className="h-32 w-32 shrink-0 rounded-xl overflow-hidden bg-emerald-50">
-                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div className="flex justify-between items-start">

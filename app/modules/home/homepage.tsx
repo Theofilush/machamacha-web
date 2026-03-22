@@ -17,7 +17,7 @@ export function Homepage() {
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("/products");
+      const res = await fetch("http://localhost:3000/products");
       if (!res.ok) throw new Error("Failed to fetch products");
       return res.json();
     },
@@ -27,7 +27,7 @@ export function Homepage() {
 
   return (
     <div className="flex flex-col gap-16 pb-16">
-      {/* {products.map((product) => (
+      {/* {featuredProducts?.map((product) => (
         <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
           <h3 className="font-semibold">{product.name}</h3>
           <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
@@ -108,10 +108,10 @@ export function Homepage() {
                 </Card>
               ))
             : featuredProducts?.map((product) => (
-                <Link key={product.id} to={`/products/${product.id}`} className="group">
+                <Link key={product.id} to={`/products/${product.slug}`} className="group">
                   <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white">
                     <div className="relative h-64 overflow-hidden bg-emerald-50">
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <CardContent className="p-4">
                       <h3 className="font-medium text-lg mb-1 group-hover:text-emerald-700 transition-colors">{product.name}</h3>

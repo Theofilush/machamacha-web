@@ -150,7 +150,7 @@ export function Products() {
                 <Card key={product.id} className="group overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white flex flex-col">
                   <div className="relative h-64 overflow-hidden bg-emerald-50">
                     <Link to={`/products/${product.id}`}>
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </Link>
                     <button
                       onClick={(e) => {
