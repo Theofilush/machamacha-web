@@ -1,63 +1,156 @@
-import { $api } from "../experiment/api";
+import { Leaf, ShieldCheck, Truck, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { Skeleton } from "~/components/ui/skeleton";
+// import { $api } from "../experiment/api";
+import { useQuery } from "@tanstack/react-query";
+import type { Product } from "~/lib/store";
 
 export function Homepage() {
-  const { data: products, error, isLoading } = $api.useQuery("get", "/products");
+  // const { data: products, error, isLoading } = $api.useQuery("get", "/products");
 
-  if (isLoading || !products) return <p>Loading products...</p>;
+  // if (isLoading || !products) return <p>Loading products...</p>;
 
-  if (error) return <p>Failed to load products: {error.error}</p>;
+  // if (error) return <p>Failed to load products: {error.error}</p>;
+
+  const { data: products, isLoading } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await fetch("/products");
+      if (!res.ok) throw new Error("Failed to fetch products");
+      return res.json();
+    },
+  });
+
+  const featuredProducts = products?.slice(0, 3);
 
   return (
-    <>
-      <section className="py-12">
-        <div className="container mx-auto px-4 md:px-8 lg:px-16">
-          <h2 className="text-2xl font-bold mb-8 text-center">OUR BEST-SELLING MATCHA</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-                <h3 className="font-semibold">{product.name}</h3>
-                <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
-              </div>
-            ))}
+    <div className="flex flex-col gap-16 pb-16">
+      {/* {products.map((product) => (
+        <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
+          <h3 className="font-semibold">{product.name}</h3>
+          <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
+        </div>
+      ))} */}
+      {/* Hero Section */}
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1582793988951-9aed5509eb97?q=80&w=2000&auto=format&fit=crop" alt="Matcha preparation" className="w-full h-full object-cover brightness-[0.6]" />
+        </div>
+        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">Elevate Your Daily Ritual</h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-emerald-50/90">Discover premium ceremonial grade matcha sourced directly from the finest tea farms in Uji, Japan.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/products">
+              <Button size="lg" className="w-full sm:w-auto text-base h-12 px-8 bg-emerald-600 hover:bg-emerald-500">
+                Shop Matcha
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto text-base h-12 px-8 border-white text-white hover:bg-white/20 hover:text-white bg-transparent">
+                Our Story
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-green-50 py-12 dark:bg-gray-800 transition-colors duration-500">
-        <div className="container mx-auto px-4 md:px-8 lg:px-16">
-          <h2 className="text-2xl font-bold mb-8 text-center">WHY MATCHA?</h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <li className="p-4 bg-white shadow rounded dark:bg-gray-700">
-              <h3 className="font-semibold">ANTIOXIDANT POWER</h3>
-              <p>Matcha is like a cell superhero, keeping you healthy and radiant!</p>
-            </li>
-            <li className="p-4 bg-white shadow rounded dark:bg-gray-700">
-              <h3 className="font-semibold">BRAINPOWER BOOST</h3>
-              <p>Sharper focus with a side of calm. It’s like a chill pill and a brain gym in a cup!</p>
-            </li>
-            <li className="p-4 bg-white shadow rounded dark:bg-gray-700">
-              <h3 className="font-semibold">METABOLISM MAGIC</h3>
-              <p>Rev up your inner engine! Burn, baby, burn – in the best way!</p>
-            </li>
-            <li className="p-4 bg-white shadow rounded dark:bg-gray-700">
-              <h3 className="font-semibold">HEART’S BEST FRIEND</h3>
-              <p>Like a cozy hug for your heart – keeping it strong and loved with every sip.</p>
-            </li>
-          </ul>
+      {/* Features */}
+      <section className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-emerald-100/50">
+            <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-700">
+              <Leaf className="h-6 w-6" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">100% Organic</h3>
+            <p className="text-muted-foreground text-sm">Sustainably grown and harvested without pesticides.</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-emerald-100/50">
+            <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-700">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Premium Quality</h3>
+            <p className="text-muted-foreground text-sm">Stone-ground to preserve nutrients and vibrant color.</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-emerald-100/50">
+            <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-700">
+              <Truck className="h-6 w-6" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Fast Shipping</h3>
+            <p className="text-muted-foreground text-sm">Free delivery on orders over Rp 500.000.</p>
+          </div>
         </div>
       </section>
 
-      <section className="py-12">
-        <div className="container mx-auto px-4 md:px-8 lg:px-16">
-          <h2 className="text-2xl font-bold mb-8 text-center">EXPLORE RECIPES</h2>
-          <ul className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-            <li className="border p-4 dark:border-gray-600 dark:bg-gray-800">ICED MATCHA LATTE</li>
-            <li className="border p-4 dark:border-gray-600 dark:bg-gray-800">COCONUT MATCHA</li>
-            <li className="border p-4 dark:border-gray-600 dark:bg-gray-800">MATCHARICANO</li>
-            <li className="border p-4 dark:border-gray-600 dark:bg-gray-800">ICED HOJICHA LATTE</li>
-          </ul>
+      {/* Featured Products */}
+      <section className="container mx-auto px-4">
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <h2 className="text-3xl font-serif font-bold mb-2">Featured Collection</h2>
+            <p className="text-muted-foreground">Our most loved matcha essentials.</p>
+          </div>
+          <Link to="/products" className="hidden sm:flex items-center gap-2 text-emerald-700 font-medium hover:text-emerald-800 transition-colors">
+            View All <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <Card key={i} className="overflow-hidden border-none shadow-sm">
+                  <Skeleton className="h-64 w-full rounded-none" />
+                  <CardContent className="p-4">
+                    <Skeleton className="h-4 w-2/3 mb-2" />
+                    <Skeleton className="h-4 w-1/3 mb-4" />
+                    <Skeleton className="h-10 w-full" />
+                  </CardContent>
+                </Card>
+              ))
+            : featuredProducts?.map((product) => (
+                <Link key={product.id} to={`/products/${product.id}`} className="group">
+                  <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white">
+                    <div className="relative h-64 overflow-hidden bg-emerald-50">
+                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <CardContent className="p-4">
+                      <h3 className="font-medium text-lg mb-1 group-hover:text-emerald-700 transition-colors">{product.name}</h3>
+                      <p className="text-emerald-800 font-semibold mb-4">Rp {product.price.toLocaleString("id-ID")}</p>
+                      <Button variant="outline" className="w-full border-emerald-200 text-emerald-800 hover:bg-emerald-50">
+                        View Details
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+        </div>
+        <div className="mt-8 sm:hidden flex justify-center">
+          <Link to="/products">
+            <Button variant="outline" className="border-emerald-200 text-emerald-800">
+              View All Products
+            </Button>
+          </Link>
         </div>
       </section>
-    </>
+
+      {/* Newsletter / Promo Banner */}
+      <section className="container mx-auto px-4">
+        <div className="bg-emerald-900 rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20 mix-blend-overlay">
+            <img src="https://images.unsplash.com/photo-1599580879612-4f3d2f25d301?q=80&w=2000&auto=format&fit=crop" alt="Texture" className="w-full h-full object-cover" />
+          </div>
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Join the Matcha Club</h2>
+            <p className="text-emerald-100 mb-8 text-lg">Subscribe to our newsletter and get 10% off your first order. Plus, receive exclusive recipes and early access to new products.</p>
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="Enter your email address" className="flex-1 h-12 px-4 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+              <Button type="submit" size="lg" className="h-12 bg-emerald-500 hover:bg-emerald-400 text-white">
+                Subscribe
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
