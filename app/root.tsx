@@ -28,9 +28,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="font-sans text-gray-800 dark:text-gray-200 dark:bg-gray-900 transition-colors duration-500">
-        <AppLayout>{children}</AppLayout>
-
+      <body>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
