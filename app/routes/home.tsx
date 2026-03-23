@@ -2,10 +2,7 @@ import { Homepage } from "~/modules/home/homepage";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Machamacha Online Store" },
-    { name: "description", content: "Welcome to Machamacha Online Store!" },
-  ];
+  return [{ title: "MachaMacha Online Store" }, { name: "description", content: "Welcome to MachaMacha Online Store!" }];
 }
 
 export default function Home() {

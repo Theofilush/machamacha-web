@@ -20,7 +20,7 @@ export function Layout() {
             </Button>
             <Link to="/" className="flex items-center gap-2 text-emerald-800">
               <Leaf className="h-6 w-6" />
-              <span className="font-serif text-xl font-bold tracking-tight">MatchaAura</span>
+              <span className="font-serif text-xl font-bold tracking-tight">MachaMacha</span>
             </Link>
           </div>
 
@@ -98,7 +98,7 @@ export function Layout() {
           <div>
             <Link to="/" className="flex items-center gap-2 text-emerald-400 mb-4">
               <Leaf className="h-6 w-6" />
-              <span className="font-serif text-xl font-bold">MatchaAura</span>
+              <span className="font-serif text-xl font-bold">MachaMacha</span>
             </Link>
             <p className="text-sm text-emerald-200/80">Premium ceremonial grade matcha and handcrafted accessories for your daily ritual.</p>
           </div>
@@ -163,7 +163,7 @@ export function Layout() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-12 pt-8 border-t border-emerald-900/50 text-center text-sm text-emerald-200/60">
-          &copy; {new Date().getFullYear()} MatchaAura. All rights reserved.
+          &copy; {new Date().getFullYear()} MachaMacha. All rights reserved.
         </div>
       </footer>
     </div>

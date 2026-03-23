@@ -3,36 +3,17 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
-// import { $api } from "../experiment/api";
+import { $api } from "../experiment/api";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "~/lib/store";
 
 export function Homepage() {
-  // const { data: products, error, isLoading } = $api.useQuery("get", "/products");
-
-  // if (isLoading || !products) return <p>Loading products...</p>;
-
-  // if (error) return <p>Failed to load products: {error.error}</p>;
-
-  const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const res = await fetch("http://localhost:3000/products");
-      if (!res.ok) throw new Error("Failed to fetch products");
-      return res.json();
-    },
-  });
+  const { data: products, isLoading } = $api.useQuery("get", "/products");
 
   const featuredProducts = products?.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-16 pb-16">
-      {/* {featuredProducts?.map((product) => (
-        <div key={product.id} className="border p-4 text-center dark:border-gray-600 dark:bg-gray-800">
-          <h3 className="font-semibold">{product.name}</h3>
-          <p className="text-green-600 dark:text-green-400">From Rp {product.price}</p>
-        </div>
-      ))} */}
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">

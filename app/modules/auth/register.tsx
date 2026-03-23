@@ -10,7 +10,7 @@ export function Register() {
         <div className="flex flex-col items-center mb-8">
           <Link to="/" className="flex items-center gap-2 text-emerald-800 mb-6">
             <Leaf className="h-8 w-8" />
-            <span className="font-serif text-2xl font-bold tracking-tight">MatchaAura</span>
+            <span className="font-serif text-2xl font-bold tracking-tight">MachaMacha</span>
           </Link>
           <h1 className="text-2xl font-serif font-bold text-emerald-950">Create Account</h1>
           <p className="text-muted-foreground text-sm mt-2">Join us to experience premium matcha</p>

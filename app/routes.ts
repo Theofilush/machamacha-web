@@ -8,7 +8,7 @@ export default [
     index("./routes/home.tsx"),
     route("products", "./routes/products.tsx"),
     route("cart", "./routes/cart.tsx"),
-    // route("product/:id", "./routes/product.tsx"),
+    route("products/:slug", "./routes/product-detail.tsx"),
     // route("checkout", "./routes/checkout.tsx"),
     // route("order-confirmation", "./routes/order-confirmation.tsx"),
     // route("order-history", "./routes/order-history.tsx"),
