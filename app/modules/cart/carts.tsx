@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { useCartStore } from "~/lib/store";
+import { formatIDRCurrency } from "~/lib/utils";
 
 export function Cart() {
   const { items, removeItem, updateQuantity, getCartTotal, clearCart } = useCartStore();
@@ -12,7 +13,7 @@ export function Cart() {
   const handleCheckout = async () => {
     setIsCheckingOut(true);
     try {
-      const response = await fetch("/api/checkout", {
+      const response = await fetch("/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +68,7 @@ export function Cart() {
     // Load Midtrans Snap script
     const script = document.createElement("script");
     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", "SB-Mid-client-YOUR_CLIENT_KEY");
+    script.setAttribute("data-client-key", import.meta.env.VITE_MIDTRANS_CLIENT_KEY);
     document.body.appendChild(script);
 
     return () => {
@@ -140,7 +141,7 @@ export function Cart() {
             <div className="space-y-4 mb-6 text-sm">
               <div className="flex justify-between text-muted-foreground">
                 <span>Subtotal</span>
-                <span className="font-medium text-emerald-950">Rp {getCartTotal().toLocaleString("id-ID")}</span>
+                <span className="font-medium text-emerald-950">{formatIDRCurrency(getCartTotal())}</span>
               </div>
               <div className="flex justify-between text-muted-foreground">
                 <span>Shipping</span>
@@ -148,7 +149,7 @@ export function Cart() {
               </div>
               <div className="border-t border-emerald-100 pt-4 flex justify-between items-center">
                 <span className="font-semibold text-base text-emerald-950">Total</span>
-                <span className="font-bold text-xl text-emerald-800">Rp {getCartTotal().toLocaleString("id-ID")}</span>
+                <span className="font-bold text-xl text-emerald-800">{formatIDRCurrency(getCartTotal())}</span>
               </div>
             </div>
 

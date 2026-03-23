@@ -3,9 +3,7 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
-import { $api } from "../experiment/api";
-import { useQuery } from "@tanstack/react-query";
-import type { Product } from "~/lib/store";
+import { $api } from "~/lib/api";
 
 export function Homepage() {
   const { data: products, isLoading } = $api.useQuery("get", "/products");

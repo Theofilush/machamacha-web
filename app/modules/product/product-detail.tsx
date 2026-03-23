@@ -4,24 +4,25 @@ import { useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
+import { $api } from "~/lib/api";
 import { type Product, useCartStore, useWishlistStore } from "~/lib/store";
+import { formatIDRCurrency } from "~/lib/utils";
 
 export function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [quantity, setQuantity] = useState(1);
 
   const {
-    data: product,
+    data: rawProduct,
     isLoading,
     error,
-  } = useQuery<Product>({
-    queryKey: ["product", slug],
-    queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/products/${slug}`);
-      if (!res.ok) throw new Error("Product not found");
-      return res.json();
+  } = $api.useQuery("get", "/products/{slug}", {
+    params: {
+      path: { slug: slug as string },
     },
   });
+
+  const product = rawProduct as Product;
 
   const { addItem } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
@@ -81,12 +82,12 @@ export function ProductDetail() {
           <div className="flex items-center gap-4 mb-6">
             <div className="flex items-center text-amber-500">
               <Star className="h-5 w-5 fill-current" />
-              <span className="ml-1 font-medium text-gray-700">{product.rating}</span>
+              <span className="ml-1 font-medium text-gray-700">{product.rating ?? 0}</span>
             </div>
-            <span className="text-muted-foreground text-sm">({product.reviews} reviews)</span>
+            <span className="text-muted-foreground text-sm">({product.reviews ?? 0} reviews)</span>
           </div>
 
-          <p className="text-3xl font-semibold text-emerald-800 mb-8">Rp {product.price.toLocaleString("id-ID")}</p>
+          <p className="text-3xl font-semibold text-emerald-800 mb-8">{formatIDRCurrency(product.price)}</p>
 
           <div className="prose prose-emerald mb-8 text-gray-600">
             <p>{product.description}</p>

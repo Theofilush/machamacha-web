@@ -9,8 +9,12 @@ export interface Product {
   category: string;
   imageUrl: string;
   description: string;
-  rating: number;
-  reviews: number;
+  rating?: number;
+  reviews?: number;
+  stock: number;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CartItem extends Product {

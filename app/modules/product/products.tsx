@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
+import { $api } from "~/lib/api";
 import { type Product, useCartStore, useWishlistStore } from "~/lib/store";
 
 export function Products() {
@@ -14,20 +15,13 @@ export function Products() {
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "featured");
 
-  const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const res = await fetch("/api/products");
-      if (!res.ok) throw new Error("Failed to fetch products");
-      return res.json();
-    },
-  });
+  const { data: products, isLoading } = $api.useQuery("get", "/products");
 
   const { addItem } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setSearchParams((prev) => {
       if (searchQuery) prev.set("q", searchQuery);
       else prev.delete("q");
@@ -63,7 +57,7 @@ export function Products() {
     .sort((a, b) => {
       if (sortBy === "price-low") return a.price - b.price;
       if (sortBy === "price-high") return b.price - a.price;
-      if (sortBy === "rating") return b.rating - a.rating;
+      //TODO: if (sortBy === "rating") return b.rating - a.rating;
       return 0; // featured
     });
 
@@ -149,7 +143,7 @@ export function Products() {
               filteredProducts?.map((product) => (
                 <Card key={product.id} className="group overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white flex flex-col">
                   <div className="relative h-64 overflow-hidden bg-emerald-50">
-                    <Link to={`/products/${product.id}`}>
+                    <Link to={`/products/${product.slug}`}>
                       <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </Link>
                     <button
