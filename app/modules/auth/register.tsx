@@ -16,24 +16,15 @@ export function Register() {
           <p className="text-muted-foreground text-sm mt-2">Join us to experience premium matcha</p>
         </div>
 
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-              <Input type="text" placeholder="John" required className="h-12" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-              <Input type="text" placeholder="Doe" required className="h-12" />
-            </div>
-          </div>
+        <form method="post" className="space-y-4">
+          {/* <form className="space-y-4" onSubmit={(e) => e.preventDefault()}> */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <Input type="email" placeholder="you@example.com" required className="h-12" />
+            <Input name="email" type="email" placeholder="you@example.com" required className="h-12" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <Input type="password" placeholder="••••••••" required className="h-12" />
+            <Input name="password" type="password" placeholder="••••••••••••" required className="h-12" />
           </div>
 
           <Button type="submit" className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6">
