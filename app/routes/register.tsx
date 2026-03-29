@@ -19,6 +19,6 @@ export async function action({ request }: Route.ActionArgs) {
   return null;
 }
 
-export default function Register({ actionData }: Route.ComponentProps) {
+export default function Register() {
   return <RegisterPage />;
 }
