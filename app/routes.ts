@@ -16,6 +16,4 @@ export default [
     // TODO: route("order-tracking/:id", "./routes/order-tracking.tsx"),
     // TODO: route("order-tracking/:id", "./routes/order-tracking.tsx"),
   ]),
-
-  // route("*", "./routes/not-found.tsx"),
 ] satisfies RouteConfig;
