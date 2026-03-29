@@ -1,4 +1,4 @@
-import { Leaf } from "lucide-react";
+import { Leaf, LoaderIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
@@ -9,6 +9,7 @@ export function Login() {
   const navigate = useNavigate();
   const { mutate } = $api.useMutation("post", "/auth/login");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,10 +17,14 @@ export function Login() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    setIsLoading(true);
+
     mutate(
       { body: { email, password } },
       {
         onSuccess: () => {
+          setErrorMessage(null);
+          setIsLoading(false);
           navigate("/");
         },
         onError: (error: any) => {
@@ -30,6 +35,7 @@ export function Login() {
           } else {
             setErrorMessage("Login failed. Please try again.");
           }
+          setIsLoading(false);
         },
       },
     );
@@ -64,8 +70,15 @@ export function Login() {
           </div>
           {errorMessage && <div className="text-red-600 text-sm mt-2">{errorMessage}</div>}
 
-          <Button type="submit" className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6">
-            Sign In
+          <Button type="submit" disabled={isLoading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6 flex items-center justify-center gap-2">
+            {isLoading ? (
+              <>
+                <LoaderIcon className="h-5 w-5 animate-spin" />
+                Signing In...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </form>
 
