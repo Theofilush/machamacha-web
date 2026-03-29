@@ -1,9 +1,40 @@
 import { Leaf } from "lucide-react";
-import { Link } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { $api } from "~/lib/api";
 
 export function Register() {
+  const navigate = useNavigate();
+  const { mutate } = $api.useMutation("post", "/auth/register");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    mutate(
+      { body: { email, password } },
+      {
+        onSuccess: () => {
+          navigate("/login");
+        },
+        onError: (error: any) => {
+          if (typeof error?.error === "string") {
+            setErrorMessage(error.error);
+          } else if (Array.isArray(error?.errors)) {
+            setErrorMessage(error.errors.join(", "));
+          } else {
+            setErrorMessage("Registration failed. Please try again.");
+          }
+        },
+      },
+    );
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FAFAF8] px-4 py-12">
       <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-sm border border-emerald-100/50">
@@ -16,8 +47,7 @@ export function Register() {
           <p className="text-muted-foreground text-sm mt-2">Join us to experience premium matcha</p>
         </div>
 
-        <form method="post" className="space-y-4">
-          {/* <form className="space-y-4" onSubmit={(e) => e.preventDefault()}> */}
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
             <Input name="email" type="email" placeholder="you@example.com" required className="h-12" />
@@ -26,6 +56,7 @@ export function Register() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <Input name="password" type="password" placeholder="••••••••••••" required className="h-12" />
           </div>
+          {errorMessage && <div className="text-red-600 text-sm mt-2">{errorMessage}</div>}
 
           <Button type="submit" className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6">
             Create Account
