@@ -1,4 +1,4 @@
-import { Menu, Leaf, Search, Heart, ShoppingCart, User } from "lucide-react";
+import { Menu, Leaf, Search, Heart, ShoppingCart, User, LogIn } from "lucide-react";
 import { useState } from "react";
 import { Link, Outlet } from "react-router";
 import { Button } from "~/components/ui/button";
@@ -62,6 +62,11 @@ export function Layout() {
                 <User className="h-5 w-5" />
               </Button>
             </Link>
+            <Link to="/login" className="hidden sm:block">
+              <Button variant="ghost" size="icon">
+                <LogIn className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -83,6 +88,9 @@ export function Layout() {
               </Link>
               <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                 Profile
+              </Link>
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                Login
               </Link>
             </nav>
           </div>
