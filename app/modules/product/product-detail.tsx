@@ -1,31 +1,36 @@
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Heart, Star, ShoppingBag, Truck, ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
-import { $api } from "~/lib/api";
+import { fetchClient } from "~/lib/api";
 import { type Product, useCartStore, useWishlistStore } from "~/lib/store";
 import { formatIDRCurrency } from "~/lib/utils";
 
 export function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [quantity, setQuantity] = useState(1);
-
-  const {
-    data: rawProduct,
-    isLoading,
-    error,
-  } = $api.useQuery("get", "/products/{slug}", {
-    params: {
-      path: { slug: slug as string },
-    },
-  });
-
-  const product = rawProduct as Product;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any>(null);
 
   const { addItem } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
+  useEffect(() => {
+    async function load() {
+      setIsLoading(true);
+      const { data, error } = await fetchClient.GET("/products/{slug}", {
+        params: { path: { slug: slug as string } },
+      });
+      if (error) {
+        setError(error);
+      } else {
+        setProduct(data as Product);
+      }
+      setIsLoading(false);
+    }
+    load();
+  }, [slug]);
 
   if (isLoading) {
     return (
@@ -58,6 +63,14 @@ export function ProductDetail() {
       </div>
     );
   }
+  //  return (
+  //    <div>
+  //      <h1>{product.name}</h1>
+  //      <p>{product.description}</p>
+  //      <button onClick={() => addItem(product, quantity)}>Add to Cart</button>
+  //      <button onClick={() => toggleWishlist(product.slug)}>{isInWishlist(product.slug) ? "Remove from Wishlist" : "Add to Wishlist"}</button>
+  //    </div>
+  //  );
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">

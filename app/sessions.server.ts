@@ -16,7 +16,7 @@ const { getSession, commitSession, destroySession } = createCookieSessionStorage
     maxAge: 60 * 60 * 24 * 7,
     path: "/",
     sameSite: "lax",
-    secrets: [import.meta.env.COOKIE_SECRET_KEY],
+    secrets: [import.meta.env.VITE_COOKIE_SECRET_KEY],
     secure: true,
   },
 });

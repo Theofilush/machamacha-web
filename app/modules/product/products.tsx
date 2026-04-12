@@ -1,12 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal, Heart, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
-import { $api } from "~/lib/api";
+import { fetchClient } from "~/lib/api";
 import { type Product, useCartStore, useWishlistStore } from "~/lib/store";
 
 export function Products() {
@@ -14,11 +13,25 @@ export function Products() {
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "featured");
-
-  const { data: products, isLoading } = $api.useQuery("get", "/products");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any>(null);
 
   const { addItem } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
+  useEffect(() => {
+    async function load() {
+      setIsLoading(true);
+      const { data, error } = await fetchClient.GET("/products");
+      if (error) {
+        setError(error);
+      } else {
+        setProducts(data ?? []);
+      }
+      setIsLoading(false);
+    }
+    load();
+  }, []);
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,6 +73,19 @@ export function Products() {
       //TODO: if (sortBy === "rating") return b.rating - a.rating;
       return 0; // featured
     });
+
+  // return (
+  //   <div>
+  //     {/* render filteredProducts */}
+  //     {filteredProducts.map((p) => (
+  //       <div key={p.id}>
+  //         <h3>{p.name}</h3>
+  //         <button onClick={() => addItem(p, 1)}>Add to Cart</button>
+  //         <button onClick={() => toggleWishlist(p.slug)}>{isInWishlist(p.slug) ? "Remove from Wishlist" : "Add to Wishlist"}</button>
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -1,11 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import createFetchClient from "openapi-fetch";
-import createClient from "openapi-react-query";
-
+import createClient from "openapi-fetch";
 import type { paths } from "~/schema";
 
-const fetchClient = createFetchClient<paths>({
-  baseUrl: import.meta.env.VITE_API_URL,
-});
+// const fetchClient = createFetchClient<paths>({
+//   baseUrl: import.meta.env.VITE_API_URL,
+// });
 
-export const $api = createClient(fetchClient);
+// export const $api = createClient(fetchClient);
+
+export const fetchClient = createClient<paths>({ baseUrl: import.meta.env.VITE_API_URL });

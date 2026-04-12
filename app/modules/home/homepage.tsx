@@ -1,12 +1,26 @@
 import { Leaf, ShieldCheck, Truck, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
-import { $api } from "~/lib/api";
+import { fetchClient } from "~/lib/api";
 
 export function Homepage() {
-  const { data: products, isLoading } = $api.useQuery("get", "/products");
+  const [products, setProducts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      setIsLoading(true);
+      const { data, error } = await fetchClient.GET("/products");
+      if (!error && data) {
+        setProducts(data);
+      }
+      setIsLoading(false);
+    }
+    load();
+  }, []);
 
   const featuredProducts = products?.slice(0, 3);
 

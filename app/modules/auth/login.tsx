@@ -3,43 +3,41 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { $api } from "~/lib/api";
 
 export function Login() {
   const navigate = useNavigate();
-  const { mutate } = $api.useMutation("post", "/auth/login");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+  // const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   const email = formData.get("email") as string;
+  //   const password = formData.get("password") as string;
 
-    setIsLoading(true);
+  //   setIsLoading(true);
 
-    mutate(
-      { body: { email, password } },
-      {
-        onSuccess: () => {
-          setErrorMessage(null);
-          setIsLoading(false);
-          navigate("/");
-        },
-        onError: (error: any) => {
-          if (typeof error?.error === "string") {
-            setErrorMessage(error.error);
-          } else if (Array.isArray(error?.errors)) {
-            setErrorMessage(error.errors.join(", "));
-          } else {
-            setErrorMessage("Login failed. Please try again.");
-          }
-          setIsLoading(false);
-        },
-      },
-    );
-  };
+  //   mutate(
+  //     { body: { email, password } },
+  //     {
+  //       onSuccess: () => {
+  //         setErrorMessage(null);
+  //         setIsLoading(false);
+  //         navigate("/");
+  //       },
+  //       onError: (error: any) => {
+  //         if (typeof error?.error === "string") {
+  //           setErrorMessage(error.error);
+  //         } else if (Array.isArray(error?.errors)) {
+  //           setErrorMessage(error.errors.join(", "));
+  //         } else {
+  //           setErrorMessage("Login failed. Please try again.");
+  //         }
+  //         setIsLoading(false);
+  //       },
+  //     },
+  //   );
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FAFAF8] px-4">
@@ -53,8 +51,10 @@ export function Login() {
           <p className="text-muted-foreground text-sm mt-2">Sign in to your account to continue</p>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* <form className="space-y-4" onSubmit={(e) => e.preventDefault()}></form> */}
+        {/* <form className="space-y-4" onSubmit={handleSubmit}> */}
+        {/* <form className="space-y-4" onSubmit={(e) => e.preventDefault()}></form> */}
+
+        <form className="space-y-4" method="POST">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
             <Input name="email" type="email" placeholder="you@example.com" required className="h-12" />
