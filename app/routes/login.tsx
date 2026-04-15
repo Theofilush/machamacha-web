@@ -18,7 +18,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   console.info("login:token", session.get("token"));
 
   return data(
-    // { error: session.get("error") },
+    { error: session.get("error") },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
