@@ -18,7 +18,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   console.info("login:token", session.get("token"));
 
   return data(
-    { error: session.get("error") },
+    { error: session.get("error"), success: session.get("success") },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -54,5 +54,5 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Login({ loaderData }: Route.ComponentProps) {
-  return <LoginPage errorMessage={loaderData?.error as string} />;
+  return <LoginPage errorMessage={loaderData?.error as string} successMessage={loaderData?.success as string} />;
 }

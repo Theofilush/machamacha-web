@@ -3,7 +3,7 @@ import { Form, Link, useNavigation } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
-export function Login({ errorMessage }: { errorMessage?: string | null }) {
+export function Login({ errorMessage, successMessage }: { errorMessage?: string | null; successMessage?: string | null }) {
   const navigation = useNavigation();
   const isLoading = navigation.state === "submitting";
 
@@ -35,7 +35,15 @@ export function Login({ errorMessage }: { errorMessage?: string | null }) {
             </div>
             <Input name="password" type="password" placeholder="••••••••" required className="h-12" />
           </div>
-          {errorMessage && <div className="text-red-600 text-sm mt-2">{errorMessage}</div>}
+          {(successMessage || errorMessage) && (
+            <div
+              className={`p-3 rounded-lg text-sm mt-4 border ${
+                successMessage ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200"
+              }`}
+            >
+              {successMessage || errorMessage}
+            </div>
+          )}
 
           <Button type="submit" disabled={isLoading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6 flex items-center justify-center gap-2">
             {isLoading ? (
