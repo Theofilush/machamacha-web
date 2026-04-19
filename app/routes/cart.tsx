@@ -1,41 +1,22 @@
 import { Cart as CartPage } from "~/modules/cart/carts";
 import type { Route } from "./+types/cart";
-import { destroySession, getSession } from "~/sessions.server";
 import { redirect } from "react-router";
-import { fetchClient } from "~/lib/api";
-import type { User } from "~/lib/types";
+import { authClient } from "~/lib/auth-client";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "MachaMacha Cart" }, { name: "description", content: "MachaMacha Cart" }];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
+export async function loader() {
+  return {};
+}
 
-  if (!session.has("token")) {
+export async function clientLoader() {
+  const { data: session } = await authClient.getSession();
+  if (!session) {
     return redirect("/login");
   }
-
-  const token = session.get("token");
-  console.info("cart:token", token);
-
-  const { data, error } = await fetchClient.GET("/auth/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (error || !data) {
-    session.flash("error", "Failed to check user");
-    return redirect("/login", {
-      headers: { "Set-Cookie": await destroySession(session) },
-    });
-  }
-
-  const userData: User = data;
-  console.info({ userData });
-
-  return userData;
+  return null;
 }
 
 export default function Cart() {

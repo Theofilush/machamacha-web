@@ -1,21 +1,27 @@
-import { redirect } from "react-router";
-import type { Route } from "./+types/logout";
-import { getSession, destroySession } from "~/sessions.server";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { authClient } from "~/lib/auth-client";
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  return redirect("/login", {
-    headers: {
-      "Set-Cookie": await destroySession(session),
-    },
-  });
-}
+export default function Logout() {
+  const navigate = useNavigate();
 
-export async function action({ request }: Route.ActionArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  return redirect("/", {
-    headers: {
-      "Set-Cookie": await destroySession(session),
-    },
-  });
+  useEffect(() => {
+    async function handleLogout() {
+      try {
+        await authClient.signOut();
+        navigate("/login");
+      } catch (error) {
+        console.error("Logout failed:", error);
+        navigate("/login"); // Redirect anyway for safety
+      }
+    }
+    handleLogout();
+  }, [navigate]);
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+      <p className="text-emerald-800 font-medium">Signing you out...</p>
+    </div>
+  );
 }

@@ -3,8 +3,11 @@ import { useState } from "react";
 import { Link, Outlet, Form } from "react-router";
 import { Button } from "~/components/ui/button";
 import { useCartStore, useWishlistStore } from "~/lib/store";
+import { authClient } from "~/lib/auth-client";
 
-export function Layout({ isLoggedIn }: { isLoggedIn?: boolean }) {
+export function Layout() {
+  const { data: session } = authClient.useSession();
+  const isLoggedIn = !!session?.user;
   const cartItems = useCartStore((state) => state.items);
   const wishlistItems = useWishlistStore((state) => state.items);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
