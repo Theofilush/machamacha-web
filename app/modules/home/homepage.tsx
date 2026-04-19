@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
 import { fetchClient } from "~/lib/api";
 
@@ -130,14 +131,19 @@ export function Homepage() {
       <section className="container mx-auto px-4">
         <div className="bg-emerald-900 rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-20 mix-blend-overlay">
-            <img src="https://images.unsplash.com/photo-1599580879612-4f3d2f25d301?q=80&w=2000&auto=format&fit=crop" alt="Texture" className="w-full h-full object-cover" />
+            <img src="https://picsum.photos/seed/matcha-texture/2000/1000?blur=2" alt="Matcha Texture" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Join the Matcha Club</h2>
             <p className="text-emerald-100 mb-8 text-lg">Subscribe to our newsletter and get 10% off your first order. Plus, receive exclusive recipes and early access to new products.</p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Enter your email address" className="flex-1 h-12 px-4 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
-              <Button type="submit" size="lg" className="h-12 bg-emerald-500 hover:bg-emerald-400 text-white">
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                className="flex-1 h-12 bg-white text-emerald-950 placeholder:text-emerald-900/50 border-white/20 focus:ring-emerald-400 focus:border-emerald-400"
+                required
+              />
+              <Button type="submit" size="lg" className="h-12 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold transition-all duration-200">
                 Subscribe
               </Button>
             </form>
