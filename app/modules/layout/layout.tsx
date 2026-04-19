@@ -1,10 +1,10 @@
-import { Menu, Leaf, Search, Heart, ShoppingCart, User, LogIn } from "lucide-react";
+import { Menu, Leaf, Search, Heart, ShoppingCart, User, LogIn, LogOut } from "lucide-react";
 import { useState } from "react";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, Form } from "react-router";
 import { Button } from "~/components/ui/button";
 import { useCartStore, useWishlistStore } from "~/lib/store";
 
-export function Layout() {
+export function Layout({ isLoggedIn }: { isLoggedIn?: boolean }) {
   const cartItems = useCartStore((state) => state.items);
   const wishlistItems = useWishlistStore((state) => state.items);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -62,11 +62,19 @@ export function Layout() {
                 <User className="h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/login" className="hidden sm:block">
-              <Button variant="ghost" size="icon">
-                <LogIn className="h-5 w-5" />
-              </Button>
-            </Link>
+            {!isLoggedIn ? (
+              <Link to="/login" className="hidden sm:block">
+                <Button variant="ghost" size="icon">
+                  <LogIn className="h-5 w-5" />
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/logout" className="hidden sm:block">
+                <Button variant="ghost" size="icon">
+                  <LogOut className="h-5 w-5 text-red-600" />
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -89,9 +97,15 @@ export function Layout() {
               <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
                 Profile
               </Link>
-              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                Login
-              </Link>
+              {isLoggedIn ? (
+                <Link to="/logout" className="text-sm font-medium text-red-600" onClick={() => setIsMobileMenuOpen(false)}>
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  Login
+                </Link>
+              )}
             </nav>
           </div>
         )}
