@@ -1,5 +1,5 @@
 import { Leaf, LoaderIcon } from "lucide-react";
-import { Form, Link, useNavigate } from "react-router";
+import { Form, Link, useNavigate, useSearchParams } from "react-router";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -11,6 +11,8 @@ export function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isRegistered = searchParams.get("registered") === "true";
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +90,11 @@ export function Login() {
             </div>
 
             {errorMsg && <div className="p-3 rounded-lg text-sm mt-4 border bg-red-50 text-red-700 border-red-200">{errorMsg}</div>}
+            {isRegistered && !errorMsg && (
+              <div className="p-3 rounded-lg text-sm mt-4 border bg-emerald-50 text-emerald-700 border-emerald-200">
+                Registration successful! Please sign in with your new account.
+              </div>
+            )}
 
             <Button type="submit" disabled={isLoading} className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white mt-6 flex items-center justify-center gap-2">
               {isLoading ? (

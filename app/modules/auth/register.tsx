@@ -28,7 +28,7 @@ export function Register() {
       setErrorMsg(error.message || "Failed to create account.");
       setIsLoading(false);
     } else {
-      navigate("/login");
+      navigate("/login?registered=true");
     }
   };
 
