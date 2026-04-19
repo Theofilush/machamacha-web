@@ -53,6 +53,6 @@ export async function action({ request }: Route.ActionArgs) {
   });
 }
 
-export default function Login() {
-  return <LoginPage />;
+export default function Login({ loaderData }: Route.ComponentProps) {
+  return <LoginPage errorMessage={loaderData?.error as string} />;
 }
