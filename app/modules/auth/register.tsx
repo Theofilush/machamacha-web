@@ -1,5 +1,5 @@
 import { Leaf, LoaderIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Form, Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -74,7 +74,7 @@ export function Register() {
             </div>
           </div>
 
-          <form className="space-y-4" onSubmit={handleEmailSignUp}>
+          <Form className="space-y-4" onSubmit={handleEmailSignUp}>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
               <Input name="name" type="text" placeholder="John Doe" required className="h-12" value={name} onChange={(e) => setName(e.target.value)} />
@@ -100,7 +100,7 @@ export function Register() {
                 "Create Account"
               )}
             </Button>
-          </form>
+          </Form>
         </div>
 
         <div className="mt-8 text-center text-sm text-gray-600">

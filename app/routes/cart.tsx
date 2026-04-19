@@ -7,10 +7,6 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: "MachaMacha Cart" }, { name: "description", content: "MachaMacha Cart" }];
 }
 
-export async function loader() {
-  return {};
-}
-
 export async function clientLoader() {
   const { data: session } = await authClient.getSession();
   if (!session) {

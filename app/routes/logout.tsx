@@ -12,7 +12,7 @@ export default function Logout() {
         navigate("/login");
       } catch (error) {
         console.error("Logout failed:", error);
-        navigate("/login"); // Redirect anyway for safety
+        navigate("/login");
       }
     }
     handleLogout();
