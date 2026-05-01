@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { useCartStore } from "~/lib/store";
 import { formatIDRCurrency } from "~/lib/utils";
+import { fetchClient } from "~/lib/api";
 
 export function Cart() {
   const { items, removeItem, updateQuantity, getCartTotal, clearCart } = useCartStore();
@@ -13,12 +14,8 @@ export function Cart() {
   const handleCheckout = async () => {
     setIsCheckingOut(true);
     try {
-      const response = await fetch("/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const { data, error } = await fetchClient.POST("/checkout", {
+        body: {
           items: items.map((item) => ({
             id: item.id,
             price: item.price,
@@ -31,10 +28,12 @@ export function Cart() {
             email: "customer@example.com",
             phone: "08123456789",
           },
-        }),
+        } as any,
       });
 
-      const data = await response.json();
+      if (error) {
+        throw new Error(error.error || "Failed to process checkout");
+      }
 
       if (data.token) {
         // @ts-ignore
